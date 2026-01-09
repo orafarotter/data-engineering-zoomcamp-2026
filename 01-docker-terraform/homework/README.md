@@ -11,10 +11,9 @@ pip --version
 
 > **A:** `24.3.1`
 
----
-
 ## Question 2. Understanding Docker networking and docker-compose
 
 **Given the following `docker-compose.yaml`, what is the `hostname` and `port` that pgadmin should use to connect to the postgres database?**
 
 > **A:** `postgres:5432`
+The services are on the same network and the container_name is specified.
