@@ -1,3 +1,4 @@
+# Module 1 Homework: Docker & SQL
 ## Question 1. Understanding docker first run
 
 ```bash
@@ -11,3 +12,9 @@ pip --version
 > **A:** `24.3.1`
 
 ---
+
+## Question 2. Understanding Docker networking and docker-compose
+
+**Given the following `docker-compose.yaml`, what is the `hostname` and `port` that pgadmin should use to connect to the postgres database?**
+
+> **A:** `postgres:5432`
