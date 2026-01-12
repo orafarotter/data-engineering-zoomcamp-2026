@@ -1,0 +1,27 @@
+services:
+  db:
+    container_name: postgres
+    image: postgres:18
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: db_homework
+    ports:
+      - "5432:5432"
+    volumes:
+      #NAMED VALUE 
+      #db_data: o Docker gerencia um espaço próprio para esses dados. É mais performático e seguro, pois o Docker cuida do ciclo de vida.
+      #/var/lib/postgresql/data: caminho dentro do container onde o PostgreSQL armazena seus dados.
+      - db_data:/var/lib/postgresql/data
+
+  pgadmin:
+    container_name: pgadmin
+    image: dpage/pgadmin4:9.11.0
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8080:80"
+      
+volumes:
+  db_data:
