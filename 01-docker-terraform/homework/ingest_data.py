@@ -1,7 +1,5 @@
 import pandas as pd 
-from sqlalchemy import create_engine
 import pyarrow as pa
-import fastparquet as fp
 
 engine = create_engine("postgresql://root:root@localhost:5432/db_homework")
 
