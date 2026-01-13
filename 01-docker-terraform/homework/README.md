@@ -31,3 +31,15 @@ FROM tripdata_2025_11
 WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_dropoff_datetime<'2025-12-01' AND trip_distance<=1;
 ```
 
+## Question 4. Longest trip for each day
+
+**Which was the pick up day with the longest trip distance? Only consider trips with trip_distance less than 100 miles (to exclude data errors).**
+
+> **A**: `2025-11-14`
+
+```bash
+# Commands executed
+SELECT date(lpep_pickup_datetime) as longest_trip_day
+FROM tripdata_2025_11 
+WHERE trip_distance<100 ORDER BY trip_distance DESC limit 1;
+```
