@@ -32,9 +32,7 @@ def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips
 
             # Conversão das colunas int32 para int64 
             cols_para_converter = ['VendorID', 'PULocationID', 'DOLocationID']
-            # Verifica se as colunas existem antes de tentar converter
-            cols_existentes = [c for c in cols_para_converter if c in df_chunk.columns]
-            df_chunk[cols_existentes] = df_chunk[cols_existentes].astype('int64')
+            df_chunk[cols_para_converter] = df_chunk[cols_para_converter].astype('int64')
 
             # Na 1ª iteração faz 'replace' para criar a tabela, nas seguintes faz 'append'
             mode = 'replace' if i == 0 else 'append'            
