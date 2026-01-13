@@ -4,6 +4,7 @@ import pandas as pd
 import pyarrow.parquet as pq
 from sqlalchemy import create_engine
 from tqdm.auto import tqdm
+import click
 
 def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips): 
     # Inserindo dados de ZONAS no banco
@@ -44,18 +45,20 @@ def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips
         print(f"Erro ao processar '{table_name_trips}': {e}")
 
 
-def main():
-    # Parâmetros de Conexão 
-    pg_user = 'root'
-    pg_pass = 'root'
-    pg_host = 'localhost'
-    pg_port = '5432'
-    pg_db   = 'green_tripdata'
-    
-    year = 2025
-    month = 11
-    table_name_zones = 'taxi_zone_lookup'
-    table_name_trips = f'tripdata_{year}_{month:02d}'
+@click.command()
+@click.option('--pg-user', default='root', show_default=True, help='Postgres user')
+@click.option('--pg-pass', default='root', show_default=True, help='Postgres password')
+@click.option('--pg-host', default='localhost', show_default=True, help='Postgres host')
+@click.option('--pg-port', default=5432, show_default=True, type=int, help='Postgres port')
+@click.option('--pg-db', default='green_tripdata', show_default=True, help='Postgres database')
+@click.option('--year', default=2025, show_default=True, type=int, help='Year for the trip data')
+@click.option('--month', default=11, show_default=True, type=int, help='Month for the trip data')
+@click.option('--table-name-zones', default='taxi_zone_lookup', show_default=True, help='Table name for zones')
+@click.option('--table-name-trips', default=None, help='Table name for trips (computed from year/month if omitted)')
+def main(pg_user, pg_pass, pg_host, pg_port, pg_db, year, month, table_name_zones, table_name_trips):
+    # Compute trips table name if not provided
+    if table_name_trips is None:
+        table_name_trips = f'tripdata_{year}_{month:02d}'
 
     url_zones = 'https://github.com/DataTalksClub/nyc-tlc-data/releases/download/misc/taxi_zone_lookup.csv'
     url_trips = f'https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_{year}-{month:02d}.parquet'
