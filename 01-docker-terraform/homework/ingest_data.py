@@ -46,14 +46,14 @@ def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips
 
 
 @click.command()
-@click.option('--pg-user', default='root', show_default=True, help='Postgres user')
-@click.option('--pg-pass', default='root', show_default=True, help='Postgres password')
-@click.option('--pg-host', default='localhost', show_default=True, help='Postgres host')
-@click.option('--pg-port', default=5432, show_default=True, type=int, help='Postgres port')
-@click.option('--pg-db', default='green_tripdata', show_default=True, help='Postgres database')
-@click.option('--year', default=2025, show_default=True, type=int, help='Year for the trip data')
-@click.option('--month', default=11, show_default=True, type=int, help='Month for the trip data')
-@click.option('--table-name-zones', default='taxi_zone_lookup', show_default=True, help='Table name for zones')
+@click.option('--pg-user', default='root',help='Postgres user') #show_default=True
+@click.option('--pg-pass', default='root',  help='Postgres password')
+@click.option('--pg-host', default='localhost',  help='Postgres host')
+@click.option('--pg-port', default=5432,  type=int, help='Postgres port')
+@click.option('--pg-db', default='green_tripdata',  help='Postgres database')
+@click.option('--year', default=2025,  type=int, help='Year for the trip data')
+@click.option('--month', default=11,  type=int, help='Month for the trip data')
+@click.option('--table-name-zones', default='taxi_zone_lookup',  help='Table name for zones')
 @click.option('--table-name-trips', default=None, help='Table name for trips (computed from year/month if omitted)')
 def main(pg_user, pg_pass, pg_host, pg_port, pg_db, year, month, table_name_zones, table_name_trips):
     # Compute trips table name if not provided

@@ -1,21 +1,23 @@
-# base Docker image that we will build on
+# Usa imagem Python 3.11 slim (mais leve)
 FROM python:3.11-slim
 
-# Copy uv binary from official uv image (multi-stage build pattern)
+# Copia o executável do 'uv' da imagem oficial
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 
-# set up the working directory inside the container
+# Define o diretório de trabalho dentro do container
 WORKDIR /app
 
-# Add virtual environment to PATH so we can use installed packages
+# Adiciona o ambiente virtual ao PATH do sistema
 ENV PATH="/app/.venv/bin:$PATH"
 
-# set up our image by installing prerequisites; pandas in this case
-RUN pip install pandas pyarrow
+# Copia arquivos de dependência primeiro (otimiza o cache do Docker)
+COPY "pyproject.toml" "uv.lock" ".python-version" ./
 
-# copy the script to the container. 1st name is source file, 2nd is destination
+# Instala as dependências travadas no arquivo lock
+RUN uv sync --locked
+
+# Copia o script de ingestão para o container | 1º é o arquivo de origem, 2º é o destino
 COPY ingest_data.py .
 
-# define what to do first when the container runs
-# in this example, we will just run the script
+# Define o comando que será executado ao iniciar o container
 ENTRYPOINT ["python", "ingest_data.py"]
