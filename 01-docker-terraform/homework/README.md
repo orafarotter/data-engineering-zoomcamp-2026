@@ -1,15 +1,15 @@
 # Module 1 Homework: Docker & SQL
 ## Question 1. Understanding docker first run
 
+**What's the version of pip in the image?**
+
+- **A:** 24.3.1
+
 ```bash
 # Commands executed
 docker run -it --entrypoint=bash python:3.12.8
 pip --version
 ```
-
-**What's the version of pip in the image?**
-
-> **A:** `24.3.1`
 
 ## Question 2. Understanding Docker networking and docker-compose
 
