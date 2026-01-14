@@ -15,17 +15,16 @@ pip --version
 
 **Given the following `docker-compose.yaml`, what is the `hostname` and `port` that pgadmin should use to connect to the postgres database?**
 
-> **A:** `postgres:5432`
+- **A:** postgres:5432
 The services are on the same network and the container_name is specified.
 
 ## Question 3. Counting short trips
 
 **For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2025-12-01', exclusive of the upper bound), how many trips had a `trip_distance` of less than or equal to 1 mile?**
 
-> **A:** `8,007`
+- **A:** 8,007
 
 ```SQL 
---Commands executed
 SELECT count(*) 
 FROM tripdata_2025_11 
 WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_dropoff_datetime<'2025-12-01' AND trip_distance<=1;
@@ -35,10 +34,9 @@ WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_dropoff_datetime<'2025-12-01' 
 
 **Which was the pick up day with the longest trip distance? Only consider trips with trip_distance less than 100 miles (to exclude data errors).**
 
-> **A**: `2025-11-14`
+- **A:** 2025-11-14
 
 ```SQL
---Commands executed
 SELECT date(lpep_pickup_datetime) as longest_trip_day
 FROM tripdata_2025_11 
 WHERE trip_distance<100 ORDER BY trip_distance DESC limit 1;
@@ -48,10 +46,9 @@ WHERE trip_distance<100 ORDER BY trip_distance DESC limit 1;
 
 **Which was the pickup zone with the largest `total_amount` (sum of all trips) on November 18th, 2025?**
 
-> **A**: `East Harlem North`
+- **A:** East Harlem North
 
 ```SQL
---Commands executed
 SELECT z."Zone",
 ROUND(sum(t.total_amount)::numeric, 2) AS total_amount
 FROM tripdata_2025_11 t 
@@ -61,3 +58,7 @@ GROUP BY z."Zone"
 ORDER BY total_amount DESC
 LIMIT 1;
 ```
+
+## Question 6. Largest tip
+
+**For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?**
