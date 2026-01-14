@@ -63,4 +63,20 @@ LIMIT 1;
 ## Question 6. Largest tip
 
 For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?
-Note: it's tip , not trip. We need the name of the zone, not the ID.
+Note: it's `tip` , not `trip`. We need the name of the zone, not the ID.
+
+```SQL
+SELECT 
+	--t.lpep_pickup_datetime, 
+	--t.lpep_dropoff_datetime, 
+	--pu."Zone" as pickup_zone, 
+	dr."Zone" as dropoff_zone,
+	max(t.tip_amount) as max_tip_amount
+FROM tripdata_2025_11 t 
+LEFT JOIN taxi_zone_lookup pu on pu."LocationID"=t."PULocationID"
+LEFT JOIN taxi_zone_lookup dr on dr."LocationID"=t."DOLocationID"
+WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_pickup_datetime<'2025-12-01' AND pu."Zone"='East Harlem North'
+GROUP BY dr."Zone"
+ORDER BY max_tip_amount desc
+LIMIT 1;
+```
