@@ -1,4 +1,7 @@
 # Module 1 Homework: Docker & SQL
+
+The code used to solve this homework is in this folder.
+
 ## Question 1. Understanding docker first run
 
 What's the version of pip in the image?
