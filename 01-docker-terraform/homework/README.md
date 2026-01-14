@@ -24,8 +24,8 @@ The services are on the same network and the container_name is specified.
 
 > **A:** `8,007`
 
-```bash
-# Commands executed
+```SQL 
+--Commands executed
 SELECT count(*) 
 FROM tripdata_2025_11 
 WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_dropoff_datetime<'2025-12-01' AND trip_distance<=1;
@@ -37,9 +37,27 @@ WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_dropoff_datetime<'2025-12-01' 
 
 > **A**: `2025-11-14`
 
-```bash
-# Commands executed
+```SQL
+--Commands executed
 SELECT date(lpep_pickup_datetime) as longest_trip_day
 FROM tripdata_2025_11 
 WHERE trip_distance<100 ORDER BY trip_distance DESC limit 1;
+```
+
+## Question 5. Biggest pickup zone
+
+**Which was the pickup zone with the largest `total_amount` (sum of all trips) on November 18th, 2025?**
+
+> **A**: `East Harlem North`
+
+```SQL
+--Commands executed
+SELECT z."Zone",
+ROUND(sum(t.total_amount)::numeric, 2) AS total_amount
+FROM tripdata_2025_11 t 
+LEFT JOIN taxi_zone_lookup z on z."LocationID"=t."PULocationID"
+WHERE date(t.lpep_pickup_datetime)='2025-11-18'
+GROUP BY z."Zone"
+ORDER BY total_amount DESC
+LIMIT 1;
 ```
