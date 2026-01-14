@@ -1,9 +1,9 @@
 # Module 1 Homework: Docker & SQL
 ## Question 1. Understanding docker first run
 
-**What's the version of pip in the image?**
+What's the version of pip in the image?
 
-- **A:** 24.3.1
+- A: 24.3.1
 
 ```bash
 # Commands executed
@@ -13,16 +13,17 @@ pip --version
 
 ## Question 2. Understanding Docker networking and docker-compose
 
-**Given the following `docker-compose.yaml`, what is the `hostname` and `port` that pgadmin should use to connect to the postgres database?**
+Given the following `docker-compose.yaml`, what is the `hostname` and `port` that pgadmin should use to connect to the postgres database?
 
-- **A:** postgres:5432
-The services are on the same network and the container_name is specified.
+- A: postgres:5432
+
+*The services are on the same network and the container_name is specified.*
 
 ## Question 3. Counting short trips
 
-**For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2025-12-01', exclusive of the upper bound), how many trips had a `trip_distance` of less than or equal to 1 mile?**
+For the trips in November 2025 (lpep_pickup_datetime between '2025-11-01' and '2025-12-01', exclusive of the upper bound), how many trips had a `trip_distance` of less than or equal to 1 mile?
 
-- **A:** 8,007
+- A: 8,007
 
 ```SQL 
 SELECT count(*) 
@@ -32,9 +33,9 @@ WHERE lpep_pickup_datetime>='2025-11-01' AND lpep_dropoff_datetime<'2025-12-01' 
 
 ## Question 4. Longest trip for each day
 
-**Which was the pick up day with the longest trip distance? Only consider trips with trip_distance less than 100 miles (to exclude data errors).**
+Which was the pick up day with the longest trip distance? Only consider trips with trip_distance less than 100 miles (to exclude data errors).
 
-- **A:** 2025-11-14
+- A: 2025-11-14
 
 ```SQL
 SELECT date(lpep_pickup_datetime) as longest_trip_day
@@ -44,9 +45,9 @@ WHERE trip_distance<100 ORDER BY trip_distance DESC limit 1;
 
 ## Question 5. Biggest pickup zone
 
-**Which was the pickup zone with the largest `total_amount` (sum of all trips) on November 18th, 2025?**
+Which was the pickup zone with the largest `total_amount` (sum of all trips) on November 18th, 2025?
 
-- **A:** East Harlem North
+- A: East Harlem North
 
 ```SQL
 SELECT z."Zone",
@@ -61,4 +62,5 @@ LIMIT 1;
 
 ## Question 6. Largest tip
 
-**For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?**
+For the passengers picked up in the zone named "East Harlem North" in November 2025, which was the drop off zone that had the largest tip?
+Note: it's tip , not trip. We need the name of the zone, not the ID.
