@@ -1,4 +1,5 @@
 *.parquet
+echo "*.json" >> .gitignore
 20260114_SQLs.txt
 20260114_DOCKER_PGS_Roteiro_raw.txt
 
