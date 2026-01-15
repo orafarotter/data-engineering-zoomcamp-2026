@@ -1,23 +1,23 @@
-# Usa imagem Python 3.11 slim (mais leve)
+# Use Python 3.11 slim image (lighter)
 FROM python:3.11-slim
 
-# Copia o executável do 'uv' da imagem oficial
+# Copy the 'uv' executable from the official image
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
 
-# Define o diretório de trabalho dentro do container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Adiciona o ambiente virtual ao PATH do sistema
+# Add the virtual environment to the system PATH
 ENV PATH="/app/.venv/bin:$PATH"
 
-# Copia arquivos de dependência primeiro (otimiza o cache do Docker)
+# Copy dependency files first (optimizes Docker cache)
 COPY "pyproject.toml" "uv.lock" ".python-version" ./
 
-# Instala as dependências travadas no arquivo lock
+# Install dependencies locked in the lock file
 RUN uv sync --locked
 
-# Copia o script de ingestão para o container | 1º é o arquivo de origem, 2º é o destino
+# Copy the ingestion script into the container | 1st is source, 2nd is destination
 COPY ingest_data.py .
 
-# Define o comando que será executado ao iniciar o container
+# Define the command to run when the container starts
 ENTRYPOINT ["python", "ingest_data.py"]
