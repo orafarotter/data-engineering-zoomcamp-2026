@@ -1,14 +1,11 @@
 variable "credentials" {
   description = "My Credentials"
-  default     = "./keys/project-c547a08c-a25e-4ad3-bcf-48b8b380b82e.json"
-  #ex: if you have a directory where this file is called keys with your service account json file
-  #saved there as my-creds.json you could use default = "./keys/my-creds.json"
+  default     = "./keys/<key>.json"
 }
-
 
 variable "project" {
   description = "Project"
-  default     = "project-c547a08c-a25e-4ad3-bcf"
+  default     = "<your_project_id>"
 }
 
 variable "region" {
