@@ -27,7 +27,7 @@ def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips
         parquet_file = pq.ParquetFile(file_buffer)
         
         # Iterating over the chunks (row groups) of the parquet
-        for i in tqdm(range(parquet_file.num_row_groups), desc="Carregando tripdata"):
+        for i in tqdm(range(parquet_file.num_row_groups), desc="Loading tripdata"):
             
             # Loading only one chunk into memory.
             df_chunk = parquet_file.read_row_group(i).to_pandas()
