@@ -1,3 +1,4 @@
+import os
 import io
 import requests
 import pandas as pd
@@ -47,11 +48,15 @@ def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips
         print(f"Error processing '{table_name_trips}': {e}")
 
 @click.command()
-@click.option('--pg-user', default='root',help='Postgres user') #show_default=True
-@click.option('--pg-pass', default='root',  help='Postgres password')
-@click.option('--pg-host', default='localhost',  help='Postgres host')
-@click.option('--pg-port', default=5432,  type=int, help='Postgres port')
-@click.option('--pg-db', default='green_tripdata',  help='Postgres database')
+#@click.option('--pg-user', default='root',help='Postgres user') #show_default=True
+#@click.option('--pg-host', default='localhost',  help='Postgres host')
+#@click.option('--pg-port', default=5432,  type=int, help='Postgres port')
+#@click.option('--pg-db', default='green_tripdata',  help='Postgres database')
+@click.option('--pg-user', default=lambda: os.environ.get('DB_USER', 'root'),help='Postgres user') #show_default=True
+@click.option('--pg-pass', default=lambda: os.environ.get('DB_PASSWORD', ''),  help='Postgres password')
+@click.option('--pg-host', default=lambda: os.environ.get('DB_HOST', 'localhost'),  help='Postgres host')
+@click.option('--pg-port', default=lambda: int(os.environ.get('DB_PORT', '5432')),  type=int, help='Postgres port')
+@click.option('--pg-db', default=lambda: os.environ.get('DB_NAME', 'green_tripdata'),  help='Postgres database')
 @click.option('--year', default=2025,  type=int, help='Year for the trip data')
 @click.option('--month', default=11,  type=int, help='Month for the trip data')
 @click.option('--table-name-zones', default='taxi_zone_lookup',  help='Table name for zones')
