@@ -4,6 +4,7 @@ echo "*.json" >> .gitignore
 20260114_SQLs.txt
 20260114_DOCKER_PGS_Roteiro_raw.txt
 20260115_TERRAFORM_Roteiro.txt
+notebook_raw.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

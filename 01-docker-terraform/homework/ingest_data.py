@@ -7,43 +7,44 @@ from tqdm.auto import tqdm
 import click
 
 def ingest_data(engine, url_zones, url_trips, table_name_zones, table_name_trips): 
-    # Inserindo dados de ZONAS no banco
+    # Inserting ZONE data into the database.
     try:
         df_zones = pd.read_csv(url_zones)        
         
         df_zones.to_sql(name=table_name_zones, con=engine, if_exists='replace')
-        print(f"Tabela '{table_name_zones}' criada!")        
+        print(f"Table '{table_name_zones}' created!")        
     except Exception as e:
-        print(f"Erro ao processar '{table_name_zones}': {e}")
+        print(f"Error processing '{table_name_zones}': {e}")
 
     print("\n")
 
-    # Inserindo dados de VIAGENS no banco
+    # Inserting TRIP data into the database.
     try:
-        # Baixando o arquivo parquet para a memória
+        # Downloading the parquet file to memory.
         response = requests.get(url_trips)
         file_buffer = io.BytesIO(response.content)
         parquet_file = pq.ParquetFile(file_buffer)
         
-        # Iterando sobre os chunks (row groups) do parquet
+        # Iterating over the chunks (row groups) of the parquet
         for i in tqdm(range(parquet_file.num_row_groups), desc="Carregando tripdata"):
             
-            # Carrega apenas um chunk para a memória
+            # Loading only one chunk into memory.
             df_chunk = parquet_file.read_row_group(i).to_pandas()
 
-            # Conversão das colunas int32 para int64 
-            cols_para_converter = ['VendorID', 'PULocationID', 'DOLocationID']
-            df_chunk[cols_para_converter] = df_chunk[cols_para_converter].astype('int64')
+            # Converting columns from int32 to int64.
+            cols_to_convert = ['VendorID', 'PULocationID', 'DOLocationID']
+            df_chunk[cols_to_convert] = df_chunk[cols_to_convert].astype('int64')
 
-            # Na 1ª iteração faz 'replace' para criar a tabela, nas seguintes faz 'append'
+            # If it's the first chunk, replace the table to start fresh.
+            # For subsequent chunks, append to the existing table.
             mode = 'replace' if i == 0 else 'append'            
-            df_chunk.to_sql(name=table_name_trips, con=engine, if_exists=mode, index=False)            
+            df_chunk.to_sql(name=table_name_trips, con=engine, if_exists=mode, index=False) 
+            #index=False to prevent Pandas from creating an unnecessary extra column in your database.           
 
-        print(f"Tabela '{table_name_trips}' criada!")
+        print(f"Table '{table_name_trips}' created!")
 
     except Exception as e:
-        print(f"Erro ao processar '{table_name_trips}': {e}")
-
+        print(f"Error processing '{table_name_trips}': {e}")
 
 @click.command()
 @click.option('--pg-user', default='root',help='Postgres user') #show_default=True
@@ -65,9 +66,8 @@ def main(pg_user, pg_pass, pg_host, pg_port, pg_db, year, month, table_name_zone
 
     engine = create_engine(f'postgresql://{pg_user}:{pg_pass}@{pg_host}:{pg_port}/{pg_db}')
 
-    print("Conexão com o banco estabelecida.")
-
-    # Chamada da função de ingestão
+    print("Connection with the database established.")
+   
     ingest_data(
         engine=engine,
         url_zones=url_zones,
