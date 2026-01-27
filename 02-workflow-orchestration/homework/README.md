@@ -8,13 +8,15 @@ Within the execution for `Yellow` Taxi data for the year `2020` and month `12`: 
 
 - A: 128.3 MiB
 
-![Kestra - Execution](images/01.png)
+![KESTRA - Executions](images/01.png)
 
 ## Question 2
 
 What is the rendered value of the variable `file` when the inputs `taxi` is set to `green`, `year` is set to `2020`, and `month` is set to `04` during execution?
 
 - A: `green_tripdata_2020-04.csv`
+
+![KESTRA - Executions](images/02.png)
 
 ## Question 3
 
@@ -39,3 +41,5 @@ How many rows are there for the `Yellow` Taxi data for the March 2021 CSV file?
 How would you configure the timezone to New York in a Schedule trigger?
 
 - A: Add a `timezone` property set to `America/New_York` in the `Schedule` trigger configuration
+
+*Reference: https://kestra.io/docs/workflow-components/triggers/schedule-trigger#examples*
