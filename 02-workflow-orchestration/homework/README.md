@@ -8,6 +8,8 @@ Within the execution for `Yellow` Taxi data for the year `2020` and month `12`: 
 
 - A: 128.3 MiB
 
+![Kestra - Execution](images/01.png)
+
 ## Question 2
 
 What is the rendered value of the variable `file` when the inputs `taxi` is set to `green`, `year` is set to `2020`, and `month` is set to `04` during execution?
