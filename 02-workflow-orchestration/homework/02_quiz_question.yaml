@@ -1,0 +1,32 @@
+id: 02_quiz_question
+namespace: zoomcamp
+description: |
+  Code to discover and explain answer 2 of Module 2 Homework.
+  Link: https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/cohorts/2026/02-workflow-orchestration/homework.md#quiz-questions
+
+inputs:
+  - id: taxi
+    type: SELECT
+    displayName: Select taxi type
+    values: [yellow, green]
+    defaults: green
+
+  - id: year
+    type: SELECT
+    displayName: Select year
+    values: ["2019", "2020"]
+    defaults: "2019"
+
+  - id: month
+    type: SELECT
+    displayName: Select month
+    values: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]
+    defaults: "01"
+
+variables:
+  file: "{{inputs.taxi}}_tripdata_{{inputs.year}}-{{inputs.month}}.csv"
+
+tasks:
+  - id: show_rendered_value
+    type: io.kestra.plugin.core.log.Log
+    message: "Filename: {{render(vars.file)}}"
