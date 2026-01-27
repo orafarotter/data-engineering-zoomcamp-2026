@@ -24,17 +24,23 @@ How many rows are there for the `Yellow` Taxi data for all CSV files in the year
 
 - A: 24,648,499
 
+![KESTRA - Executions](images/03.png)
+
 ## Question 4
 
 How many rows are there for the `Green` Taxi data for all CSV files in the year 2020?
 
 - A: 1,734,051
 
+![KESTRA - Executions](images/04.png)
+
 ## Question 5
 
 How many rows are there for the `Yellow` Taxi data for the March 2021 CSV file?
 
 - A: 1,925,152
+
+![KESTRA - Executions](images/05.png)
 
 ## Question 6
 
