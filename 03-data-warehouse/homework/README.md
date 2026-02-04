@@ -153,6 +153,6 @@ How many bytes does it estimate will be read?
 
 Why?
 
-- A: BigQuery caches query results to improve performance and reduce costs. When you run a query in BigQuery—as I did in Question 1—the results are cached for 24 hours by default. Running the same query again makes BigQuery retrieve the results from the cache instead of reprocessing the entire query.
+- A: BigQuery caches query results to improve performance and reduce costs. When you run a query in BigQuery — as I did in [Question 1](#question-1-counting-records) — the results are cached for 24 hours by default. Running the same query again makes BigQuery retrieve the results from the cache instead of reprocessing the entire query.
 
 *Reference: https://rafaelrampineli.medium.com/understanding-google-bigquery-tables-caching-partitioning-and-clustering-03444a9238a7*
