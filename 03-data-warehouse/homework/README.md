@@ -119,7 +119,7 @@ SELECT DISTINCT VendorID
 FROM `zoomcamp_dataset_dw.partitioned_clustered_yellow_tripdata`
 WHERE tpep_dropoff_datetime >= '2024-03-01'
   AND tpep_dropoff_datetime <  '2024-03-16'
-This query will process 26.84 MB when run.
+--This query will process 26.84 MB when run.
 ```
 
 Choose the answer which most closely matches.
