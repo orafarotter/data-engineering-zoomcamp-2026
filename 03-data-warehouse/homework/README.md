@@ -149,7 +149,7 @@ Write a SELECT count(*) query FROM the materialized table you created.
 
 How many bytes does it estimate will be read?
 
-- A: This query will process 0 B when run.
+- A: 0B
 
 Why?
 
