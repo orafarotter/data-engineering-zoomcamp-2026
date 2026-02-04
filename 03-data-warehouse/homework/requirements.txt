@@ -1,0 +1,4 @@
+# Requirements for download and upload script
+requests
+google-cloud-storage
+python-dotenv
