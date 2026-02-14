@@ -51,7 +51,6 @@ What is the count of records in the `fct_monthly_zone_revenue` model?
 select count(*) from {{ ref('fct_monthly_zone_revenue')}}
 ```
 
-
 ## Question 4. Best Performing Zone for Green Taxis (2020)
 
 Using the `fct_monthly_zone_revenue` table, find the pickup zone with the **highest total revenue** (`revenue_monthly_total_amount`) for **Green** taxi trips in 2020.
@@ -72,7 +71,6 @@ group by 1
 order by total_revenue_green_20 desc
 ```
 
-
 ## Question 5. Green Taxi Trip Counts (October 2019)
 
 Using the `fct_monthly_zone_revenue` table, what is the **total number of trips** (`total_monthly_trips`) for Green taxis in October 2019?
@@ -86,5 +84,8 @@ where service_type = 'Green' and
 revenue_month = '2019-10-01'
 ```
 
+## Question 6. Build a Staging Model for FHV Data
 
+What is the count of records in `stg_fhv_tripdata`?
 
+- A: 
