@@ -3,8 +3,8 @@ version: 2
 sources:
   - name: raw_data 
     description: "Raw data sources for NYC taxi rides"
-    database: project-c547a08c-a25e-4ad3-bcf #Project ID
-    schema: zoomcamp_dataset_ae #Dataset name
+    database: GCP_PROJECT_ID 
+    schema: BIGQUERY_DATASET 
     tables:
       - name: green_tripdata
         description: Raw green taxi trip data
