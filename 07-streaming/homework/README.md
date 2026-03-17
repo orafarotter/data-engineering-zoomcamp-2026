@@ -14,6 +14,8 @@ What version of Redpanda are you running?
 
 - A: v25.3.9
 
+![Redpanda Version](images/Q1.png)
+
 ## Question 2. Sending data to Redpanda
 
 Create a topic called `green-trips`:
@@ -39,39 +41,12 @@ Convert each row to a dictionary and send it to the `green-trips` topic.
 You'll need to handle the datetime columns - convert them to strings
 before serializing to JSON.
 
-Measure the time it takes to send the entire dataset and flush:
-
-```python
-from time import time
-
-t0 = time()
-
-# send all rows ...
-
-producer.flush()
-
-t1 = time()
-print(f'took {(t1 - t0):.2f} seconds')
-```
-
+Measure the time it takes to send the entire dataset and flush.
 How long did it take to send the data?
 
 - A: 10 seconds
 
-```python 
-from time import time
-
-t0 = time()
-
-for _, row in df.iterrows():
-    ride = ride_from_row(row)
-    producer.send(topic_name, value=ride)
-
-producer.flush()
-
-t1 = time()
-print(f'took {(t1 - t0):.2f} seconds')
-```
+![Total time to send the dataset and flush operation](images/Q2.png)
 
 ## Question 3. Consumer - trip distance
 
@@ -106,19 +81,16 @@ tumbling window to count trips per `PULocationID`.
 Write the results to a PostgreSQL table with columns:
 `window_start`, `PULocationID`, `num_trips`.
 
-After the job processes all data, query the results:
-
-```sql
-SELECT PULocationID, num_trips
-FROM <your_table>
-ORDER BY num_trips DESC
-LIMIT 3;
-```
+After the job processes all data, query the results.
 Which `PULocationID` had the most trips in a single 5-minute window?
 
 - A: 74
 
 ```SQL
+SELECT PULocationID, num_trips
+FROM pickup_location_counts
+ORDER BY num_trips DESC
+LIMIT 3;
 ```
 
 ## Question 5. Session window - longest streak
@@ -137,7 +109,11 @@ How many trips were in the longest session?
 
 - A: 81
 
-```SQL 
+```SQL
+SELECT PULocationID, num_trips
+FROM session_counts
+ORDER BY num_trips DESC
+LIMIT 1;
 ```
 
 ## Question 6. Tumbling window - largest tip
@@ -150,4 +126,8 @@ Which hour had the highest total tip amount?
 - A: 2025-10-16 18:00:00
 
 ```SQL
+SELECT window_start, total_tip_amount
+FROM tip_window
+ORDER BY total_tip_amount DESC
+LIMIT 1;
 ```
