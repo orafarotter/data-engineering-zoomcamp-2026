@@ -1,4 +1,4 @@
-# Module 7 Homework: 
+# Module 7 Homework: Streaming with PyFlink
 
 The code used to solve this homework is in this folder.
 
